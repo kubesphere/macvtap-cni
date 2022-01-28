@@ -13,3 +13,5 @@ _kubevirtci/
 
 # Temporary built files
 _out/
+
+.idea/
