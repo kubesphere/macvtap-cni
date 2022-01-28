@@ -1,4 +1,4 @@
-module github.com/kubesphere/macvtap-cni
+module github.com/kubevirt/macvtap-cni
 
 go 1.16
 
