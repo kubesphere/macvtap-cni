@@ -12,8 +12,8 @@ export PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
 export GOBIN=${GOROOT}/bin/
 mkdir -p $GOBIN
 
-echo 'Install Go 1.13'
-export GIMME_GO_VERSION=1.13
+echo 'Install Go 1.17'
+export GIMME_GO_VERSION=1.17
 GIMME=/tmp/macvtap-cni/go/gimme
 mkdir -p $GIMME
 curl -sL https://raw.githubusercontent.com/travis-ci/gimme/master/gimme | HOME=${GIMME} bash >> ${GIMME}/gimme.sh
@@ -27,3 +27,12 @@ cp -rf $(pwd)/. ${TMP_PROJECT_PATH}
 
 echo 'Exporting temporary project path'
 export TMP_PROJECT_PATH
+
+echo 'Ensuring the manifests are in sync'
+if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
+    echo "ERROR: git tree state is not clean!"
+    echo "Run `make manifests` and commit those changes"
+    git status
+    git diff
+    exit 1
+fi
